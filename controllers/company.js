@@ -6,7 +6,7 @@ const CompanyController={
     },
 
     async getByCompany(req,res){
-        await CompanyRepository.SelectByCompany(req,res);
+        await CompanyRepository.SelectByCompany(req,res,'Subway');
     }
 
 }

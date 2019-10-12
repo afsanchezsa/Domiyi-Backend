@@ -38,7 +38,7 @@ const Company = {
         return 'select '+this.getIdStatus()  + ' from '+this.getTableName()+' where '+this.getName()+'='+companyName;
     },
     getQuerySelectByCompany(companyName){
-        return 'select * from ' + this.getTableName() + ' where ' + this.getName() + '=' + companyName;
+        return 'select * from ' + this.getTableName() + ' where ' + this.getName() + '=' + '"' + companyName +'"';
     },
     getQuerySelectIdAdminByCompany(companyName) {
         return 'select '+this.getIdAdmin()  + ' from '+this.getTableName()+' where '+this.getName()+'='+companyName;

@@ -1,6 +1,7 @@
 const express=require('express');
 const connection=require('../Database-Utilities/Connection.js');
 const CompanyTable=require('../Database-Utilities/Companies.js');
+
 const companyRepository={
     SelectAll(req,res){
         connection.query(CompanyTable.getQuerySelectAll(),(err,rows,fields)=>{
@@ -12,8 +13,8 @@ const companyRepository={
         });
     },
 
-    SelectByCompany(req,res){
-        connection.query(CompanyTable.getQuerySelectByCompany(),(err,rows,fields)=>{
+    SelectByCompany(req,res,name){
+        connection.query(CompanyTable.getQuerySelectByCompany(name),(err,rows,fields)=>{
             if(!err){
                 res.json(rows);
             }else{
