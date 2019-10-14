@@ -35,8 +35,7 @@ const Company = {
     },
     getQuerySelectByCompanyName(companyName){
         return 'select * from ' + this.getTableName() + ' where ' + this.getName() + '=' + companyName;
-    }
-    ,
+    },
     getQueryIdByCompanyName(companyName){
         return 'select '+ this.getId()  + ' from '+this.getTableName()+' where '+this.getName()+'='+companyName;
     },
@@ -48,7 +47,13 @@ const Company = {
     },
     getQueryCompanyByIdAdmin(adminID) {
         return 'select * from ' + this.getTableName() + ' where ' + this.getIdAdmin() + '=' + adminID;
-    }
+    },
+    getQuerySelectAll(){
+        return 'select * from '+this.getTableName();
+    },
+    getQuerySelectByCompany(companyName){
+        return 'select * from ' + this.getTableName() + ' where ' + this.getName() + '=' + '"' + companyName +'"';
+    },
 
 }
 
