@@ -1,4 +1,4 @@
-const Company = {
+const Companies = {
     getTableName() {
         return 'companies';
     },
@@ -28,10 +28,10 @@ const Company = {
         return 'deliveryCost';
     },
     getOfficeHours(){
-        return 'officeHours';
+        return 'officceHours';
     },
     getQuerySelectById(Id) {
-        return 'select * from ' + this.getTableName() + ' where ' + this.getIdFieldName() + '=' + Id;
+        return 'select * from ' + this.getTableName() + ' where ' + this.getId() + '=' + Id;
     },
     getQuerySelectByCompanyName(companyName){
         return 'select * from ' + this.getTableName() + ' where ' + this.getName() + '=' + companyName;
@@ -39,8 +39,9 @@ const Company = {
     getQueryIdByCompanyName(companyName){
         return 'select '+ this.getId()  + ' from '+this.getTableName()+' where '+this.getName()+'='+companyName;
     },
-    getQueryInsert(product){
-        return 'CALL insertProducts ('+product.name+','+product.description+','+product.price+','+product.image+')';
+    getQueryInsert(company){
+        return "insert into "+this.getTableName()+" values ("+company.id+","+company.idStatus+",'"+company.name+"','"+
+            company.image+"',"+company.idAdmin+",'"+company.category+"','"+company.deliveryCost+"','"+company.officceHours+"')";
     },
     getQueryCompaniesByCategory(category) {
         return 'select * from ' + this.getTableName() + ' where ' + this.getCategory() + '=' + category;
@@ -57,4 +58,4 @@ const Company = {
 
 }
 
-module.exports = Company;
+module.exports = Companies;

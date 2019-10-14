@@ -2,7 +2,7 @@ const express =require('express');
 const connection = require('../Database-Utilities/Connection.js');
 const CompanyTable = require('../Database-Utilities/Companies.js');
 
-const companyRepository={
+const CompanyRepository={
     SelectByCategory(req,res){
         connection.query(CompanyTable.getQueryCompaniesByCategory(req.body.category),(err,rows,fields)=>{
             if(!err){
@@ -38,7 +38,26 @@ const companyRepository={
                 console.log(err);
             }
         });
+    },
+    SelectById(req,res){
+        connection.query(CompanyTable.getQuerySelectById(req.body.id),(err,rows,fields)=>{
+            if(!err){
+                res.json(rows);
+            }else{
+                console.log(err);
+            }
+        });
+    },
+    register(req,res){
+        connection.query(CompanyTable.getQueryInsert(req.body),(err,rows,fields)=>{
+
+            if(!err){
+                res.json(rows);
+            }else{
+                console.log(err);
+            }
+        });
     }
 };
 
-module.exports= companyRepository;
+module.exports=CompanyRepository;
