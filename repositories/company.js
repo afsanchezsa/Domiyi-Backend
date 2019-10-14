@@ -13,8 +13,8 @@ const companyRepository={
         });
     },
 
-    SelectByCompany(req,res,name){
-        connection.query(CompanyTable.getQuerySelectByCompany(name),(err,rows,fields)=>{
+    SelectByCompany(req,res){
+        connection.query(CompanyTable.getQuerySelectByCompany(req.body.name),(err,rows,fields)=>{
             if(!err){
                 res.json(rows);
             }else{
