@@ -11,6 +11,3 @@ router.get('/companies/company',CompanyController.getByCompany);
 router.post('/company/register',CompanyController.register);
 
 module.exports= router;
-
-
-
