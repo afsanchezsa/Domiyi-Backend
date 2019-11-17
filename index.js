@@ -23,7 +23,7 @@ const CompanyController = require('./controllers/company.js');
 const ProductController=require('./controllers/product');
 const UserPhone = require('./controllers/user.js');
 const UserAddress = require('./controllers/user.js');
-
+const CompanyDeliveryCost = require('/controllers/company')
 
 
 //settings
@@ -273,6 +273,19 @@ Describe('Its not a valid Address',function () {
 })
 
 
+Describe('Its not a valid DeliveryCost',function(){
+    it('Should return true or false', function (done) {
+        var correctDeliveryCost = CompanyDeliveryCost.validateDeliveryCost("5000")
+        if(!correctDeliveryCost){
+            done();
+        }else{
+            done(new Error("Not sure what's happened"))
+        }
+    })
+}
+
 */
-    
+
+
+
 

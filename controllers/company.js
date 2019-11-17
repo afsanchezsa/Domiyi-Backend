@@ -33,7 +33,16 @@ const CompanyController={
         }else {
             return false;
         }
-    }
+    },
+    validateDeliveryCost(DeliveryCost){
+        if(DeliveryCost => 0){
+            return true;
+        }else {
+            return false;
+        }
+}
+
+
 }
 module.exports=CompanyController;
 
