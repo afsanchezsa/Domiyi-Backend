@@ -411,7 +411,7 @@ FROM `bqgr2cirsykagvh6xt6c`.`order` o INNER JOIN `bqgr2cirsykagvh6xt6c`.`user` u
 -- insertado de datos para la tabla `paymentmethod`
 --
 
-INSERT INTO `paymentmethod` (`id`, `paymentMethod`) VALUES
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`paymentmethod` (`id`, `paymentMethod`) VALUES
 (1, 'Efectivo'),
 (2, 'PayPal'),
 (3, 'Credit Card');
@@ -419,7 +419,3 @@ INSERT INTO `paymentmethod` (`id`, `paymentMethod`) VALUES
 --
 -- Insertado de datos para la tabla `transactionstatus`
 --
-
-INSERT INTO `transactionstatus` (`id`, `status`) VALUES
-(1, 'EXITOSA'),
-(2, 'CANCELADA');
