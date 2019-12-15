@@ -72,7 +72,8 @@ const userRepository = {
             callback(user);
         }catch(e){
             rollbar.error(e,req);
-            res.status(400).send("hubo un problema");
+            console.log(e);
+            res.status(400).send(e);
         }
         
         
