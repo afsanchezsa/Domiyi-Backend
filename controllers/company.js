@@ -1,5 +1,6 @@
 const CompanyRepository=require('../repositories/company.js');
 const AuthorizationServer=require('../authentication/authorizationServer');
+const rollbar=require('../Logger/logger');
 const CompanyController={
     async getAll(req,res){
         AuthorizationServer.validateUser(req,res);
@@ -20,6 +21,10 @@ const CompanyController={
     async register(req,res){//register a new company
         await CompanyRepository.register(req,res);
     },
+    async getQueryCompaniesByCategory(req,res){
+        await CompanyRepository.SelectCompanyByIdCategory(req.body.idCategory,res);
+    }
+    ,
     validateIdAdmin(idAdmin){
         if (idAdmin >= 1){
             return true;

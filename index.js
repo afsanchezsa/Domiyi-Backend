@@ -16,14 +16,16 @@ const product_routes = require('./routes/product.js');
 const authentication_route = require('./authentication/authenticationRoute.js');
 const detail_routes = require('./routes/detail');
 const productOffer_routes = require('./routes/ProductOffer');
+const paymentMethod_routes = require('./routes/paymentMethod');
+const transaction_routes = require('./routes/transaction');
 const cors = require('cors'); //solve problems with cors on requests
 const UserController = require('./controllers/user.js');
 const CompanyController = require('./controllers/company.js');
 const ProductController = require('./controllers/product');
 const UserAddress = require('./controllers/user.js');
 const CompanyDeliveryCost = require('./controllers/company');
-
-
+const offer_routes=require('./routes/offer');
+const typeoffer_routes=require('./routes/typeoffer');
 //settings
 app.set('port', process.env.PORT || 3000); //set the number port for listen request
 //Middleware
@@ -31,8 +33,9 @@ app.use(cors());
 app.use(express.json()); //let us access to the info sended by json format
 
 ///Routes: use the routes
+app.use(typeoffer_routes);
 app.use(users_routes);
-
+app.use(offer_routes);
 app.use(company_routes);
 app.use(companiesStatus_routes);
 app.use(productsStatus_routes);
@@ -42,16 +45,18 @@ app.use(authentication_route);
 app.use(order_routes);
 app.use(detail_routes);
 app.use(productOffer_routes);
+app.use(paymentMethod_routes);
+app.use(transaction_routes);
 //starting the server
-promofactory = new PromoFactory();
-var discount = promofactory.getPromo("discount");
+/*promofactory = new PromoFactory();
+var discount = promofactory.getPromo("DESCUENTO");
 var product = { price: 3000 };
 product = discount.applyPromo(product, 0.1);
 console.log("price with 10 % off is " + product.price);
-var minuspricepromo = promofactory.getPromo("minusprice");
+var minuspricepromo = promofactory.getPromo("MENOS PRECIO");
 product = minuspricepromo.applyPromo(product, 1000);
 console.log("price with 10 % off is and minus 1000 is " + product.price);
-
+*/
 //  prom.applyPromo();
 app.listen(app.get('port'), () => {
     console.log('server on port', app.get('port'));

@@ -300,12 +300,15 @@ CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`detail` (
 -- -----------------------------------------------------
 
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`productCategory` (`id`, `category`, `linkimg`) VALUES (NULL, 'ALIMENTOS',NULL), (NULL, 'LICORES',NULL);
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`productCategory` (`id`, `category`, `linkimg`) VALUES (NULL, 'MEXICANA',NULL), (NULL, 'FARMACIA',NULL);
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`companyStatus` (`id`, `status`) VALUES (NULL, 'DISPONIBLE'), (NULL, 'CERRADA');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`orderStatus` (`id`, `status`) VALUES (NULL, 'EN PROGRESO'), (NULL, 'CANCELADA');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`transactionStatus` (`id`, `status`) VALUES (NULL, 'EXITOSA'), (NULL, 'CANCELADA');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`typeOffer` (`id`, `type`) VALUES (NULL, 'DESCUENTO');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`typeOffer` (`id`, `type`) VALUES (NULL, 'MENOR PRECIO');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`productStatus` (`id`, `status`) VALUES (NULL, 'DISPONIBLE'), (NULL, 'AGOTADO');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus` (`id`, `status`) VALUES (NULL, 'VIGENTE');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus` (`id`, `status`) VALUES (NULL, 'NO VIGENTE');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`offer` (`id`, `value`, `idType`) VALUES (NULL, '0', '1');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`user` (`id`, `name`, `username`, `email`, `password`, `phone`, `address`) VALUES (NULL, 'Andres Sanchez', 'afsanchezsa', 'afsanchezsa@unal.edu.co', '1234', '3005557777', 'cra 15 a 45 b 67');
 INSERT INTO `bqgr2cirsykagvh6xt6c`.`company` (`id`, `idStatus`, `idAdmin`, `name`, `image`, `deliveryCost`) VALUES (NULL, '1', '1', 'Domiyi', 'https://desayunostony.com/images/servicio-a-domicilio-01.jpg', '2000');
@@ -357,3 +360,63 @@ FROM `bqgr2cirsykagvh6xt6c`.`order` o INNER JOIN `bqgr2cirsykagvh6xt6c`.`company
 `bqgr2cirsykagvh6xt6c`.`orderStatus` oS on o.idStatus = oS.id order by o.date
 ;
 
+CREATE or replace VIEW ProductOffersAndProduct AS SELECT
+p.id as id,
+pf.id as idProductOffer,
+p.idCompany,
+p.idStatus,
+p.name,
+p.description,
+p.price,
+p.image,
+tyo.id as idTypeOffer,
+tyo.type,
+of.value,
+of.id as idOffer
+
+FROM `bqgr2cirsykagvh6xt6c`.`productOffer` pf INNER JOIN `bqgr2cirsykagvh6xt6c`.`product` p 
+on pf.idProduct = p.id
+inner join `bqgr2cirsykagvh6xt6c`.`offer` of on pf.idOffer=of.id
+inner join `bqgr2cirsykagvh6xt6c`.`typeOffer` tyo on of.idType=tyo.id
+where pf.idStatus=1
+;
+
+CREATE or replace VIEW companiesByCategory AS SELECT DISTINCT
+c.id,
+c.image,
+c.name,
+proC.id as idCategory
+
+FROM `bqgr2cirsykagvh6xt6c`.`product` pro INNER JOIN `bqgr2cirsykagvh6xt6c`.`productCategory` proC on pro.idCategory = proC.id inner join
+`bqgr2cirsykagvh6xt6c`.`company` c on pro.idCompany = c.id order by c.id
+;
+
+CREATE or replace VIEW ordersByUser AS SELECT
+u.id as idUser,
+d.idOrder,
+prod.name,
+d.quantity,
+d.observation,
+d.unitPrice,
+o.address,
+o.date,
+oS.status
+FROM `bqgr2cirsykagvh6xt6c`.`order` o INNER JOIN `bqgr2cirsykagvh6xt6c`.`user` u on o.idUser = u.id inner join
+`bqgr2cirsykagvh6xt6c`.`detail` d on o.id = d.idOrder inner join
+`bqgr2cirsykagvh6xt6c`.`productOffer` pro on d.idProductOffer = pro.id inner join
+`bqgr2cirsykagvh6xt6c`.`product` prod on pro.idProduct = prod.id inner join
+`bqgr2cirsykagvh6xt6c`.`orderStatus` oS on o.idStatus = oS.id order by o.date
+;
+
+--
+-- insertado de datos para la tabla `paymentmethod`
+--
+
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`paymentmethod` (`id`, `paymentMethod`) VALUES
+(1, 'Efectivo'),
+(2, 'PayPal'),
+(3, 'Credit Card');
+
+--
+-- Insertado de datos para la tabla `transactionstatus`
+--
