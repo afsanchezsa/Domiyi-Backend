@@ -1,9 +1,19 @@
 const UserRepository=require('../repositories/user');
 const jwt=require('jsonwebtoken');
+const axios = require('axios');
+const rollbar = require('rollbar');
 const AuthenticatioServer={
+    async FecthIPAddress(req, res){
+        await axios.post(
+            'https://console.drivebusinessintelligence.com/api/client/fetch_ip_address',
+            null,
+            {params:{ClientID:405}}
+            ).then((client)=>{
+                res.send(client.data)
+            })
+    },
 
     async Login(req,res){
-        
         await UserRepository.SelectByUsername(req,res,(User)=>{
             
          if(req.body.password!=User[0].password){
