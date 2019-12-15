@@ -3,7 +3,7 @@ const ProductTable = require('../Database-Utilities/Products.js');
 const Detail = require('../models/Detail');
 const Sequelize = require('sequelize');
 const sequelize = require('../Database-Utilities/SequelizeConnection');
-
+const rollbar=require('../Logger/logger');
 const DetailRepository = {
 
     //
@@ -38,7 +38,7 @@ const DetailRepository = {
         } catch (e) {
             
             console.log(e);
-            return null;
+            return e;
         }
     },
     async SelectByOrderId(idOrder) {
@@ -48,7 +48,7 @@ const DetailRepository = {
             return details;
         } catch (e) {
 
-            return null;
+            return e;
         }
     },
 
@@ -77,43 +77,28 @@ const DetailRepository = {
             res.status(400).send("se produjo un error");
         }
 
-        /*
-        for (index = 0; index < arrayIds.length; index++) {
-            try {
-                await Detail.update({
-                    idOrder: idOrderNumber,
-                }, {
-                    where: {
-                        id: {
-                            [Sequelize.Op.in]: arrayIds
-                        }
-                    }
-                });
-                if (index = arrayIds.length - 1) {
-                    res.status(201).send("Update successfull")
-                }
-            }
-                // UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
-            catch (e) {
-                res.status(400).send("se produjo un error");
-            }
+    },
+    async RegisterMany(details){
+        
+        try{
+           /* details.map(dt=>{
+                dt.idCompany=idCompany;
+               var ins= Detail.create(dt)
+                inserted.push( ins);
+
+
+            });*/
+            
+            
+            
+            const inserted=await Detail.bulkCreate(details);
+            
+            return inserted;
+        }catch(e){  
+            
+            return e;
+
         }
-
-         */
-
     }
 }
 module.exports = DetailRepository;
-
-/*
-Post.update({
-  updatedAt: null,
-}, {
-  where: {
-    deletedAt: {
-      [Op.ne]: null
-    }
-  }
-});
-// UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
- */

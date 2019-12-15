@@ -2,8 +2,11 @@ const connection = require('../Database-Utilities/Connection.js');
 const ProductTable = require('../Database-Utilities/Products.js');
 const Product = require('../models/Models').Product;
 const Sequelize = require('sequelize');
-const ProductRepository = {
 
+const sequelize = require('../Database-Utilities/SequelizeConnection');
+
+const rollbar = require('../Logger/logger');
+const ProductRepository = {
 
     async SelectAll(req, res) {//we obtain all products
         /*connection.query(ProductTable.getQuerySelectAll(),(err,rows,fields)=>{
@@ -42,6 +45,7 @@ const ProductRepository = {
             res.status(200).json(products);
         } catch (e) {
             console.log(e);
+            rollbar.error(e);
             res.status(400).send("hubo un error");
         }
     },
@@ -65,7 +69,7 @@ const ProductRepository = {
             });
             return product;
         } catch (e) {
-            return null;
+            return e;
         }
 
     },
@@ -73,7 +77,7 @@ const ProductRepository = {
 
     async register(req, res) {
         try {
-          const  product = await Product.create({
+            const product = await Product.create({
                 //id:req.body.id,//si no se agrega se ejecuta el autoincrement en la bd
                 idCompany: req.body.idCompany,
                 name: req.body.name,
@@ -91,12 +95,66 @@ const ProductRepository = {
         } catch (e) {
             //res.status(400).send("se produjo un error");
             //console.log(e);
-            return null;
+            //rollbar.error(e,req);
+            return e;
         }
     },
     async selectAllByIds(ids) {
         console.log(ids);
+    },
+
+    async selectByWord(word, res) {
+        try {
+            const products = await Product.findAll({
+                where: {
+                    name: {
+                        [Sequelize.Op.like]: '%' + word + '%'
+                    }
+                }
+            });
+
+            res.json(products);
+
+        }
+            // UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
+        catch (e) {
+
+            res.status(400).send("se produjo un error");
+        }
+    },
+
+    async Update(product) {
+        product.updated = new Date();
+        try {
+            const updated = await Product.update(product, {where: {id: product.id}});
+            return updated;
+        } catch (e) {
+            return e;
+
+        }
+
     }
 }
 module.exports = ProductRepository;
 
+/*
+        try {
+            await Detail.update({
+                idOrder: idOrderNumber,
+            }, {
+                where: {
+                    id: {
+                        [Sequelize.Op.in]: arrayIds
+                    }
+                }
+            });
+
+            res.status(201).send("Update successfull")
+
+        }
+            // UPDATE post SET updatedAt = null WHERE deletedAt NOT NULL;
+        catch (e) {
+
+            res.status(400).send("se produjo un error");
+        }
+ */
