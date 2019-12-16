@@ -4,11 +4,12 @@ const ProtectRoute=require('../authentication/protectRouteMiddleware');
 //we match all routes with the functions wich it executes
 
 const CompanyController= require('../controllers/company.js');
-router.get('/companies',CompanyController.getAll);
-router.get('/companies/id',CompanyController.getById);
+router.get('/companies',ProtectRoute,CompanyController.getAll);
+router.get('/companies/id',ProtectRoute,CompanyController.getById);
 router.get('/companies/category',CompanyController.getByCategory);
-router.get('/companies/idAdmin',CompanyController.getByAdminId);
-router.get('/companies/company',CompanyController.getByCompany);
-router.post('/company/register',CompanyController.register);
+router.post('/companies/idAdmin',ProtectRoute,CompanyController.getByAdminId);
+router.get('/companies/company',ProtectRoute,CompanyController.getByCompany);
+router.post('/company/register',ProtectRoute,CompanyController.register);
+router.post('/companiesBy/category',CompanyController.getQueryCompaniesByCategory);
 
 module.exports= router;

@@ -1,94 +1,94 @@
-DROP DATABASE IF EXISTS `domiyi_dbp` ;
+DROP DATABASE IF EXISTS `bqgr2cirsykagvh6xt6c` ;
 
-CREATE DATABASE IF NOT EXISTS `domiyi_dbp`;
-USE `domiyi_dbp` ;
+CREATE DATABASE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`;
+USE `bqgr2cirsykagvh6xt6c` ;
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`companyStatus`
+-- Table `bqgr2cirsykagvh6xt6c`.`companyStatus`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`companyStatus` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`companyStatus` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`companyStatus` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`companyStatus` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`company`
+-- Table `bqgr2cirsykagvh6xt6c`.`company`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`company` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`company` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`company` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`company` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `idStatus` INT NOT NULL,
   `idAdmin` INT NOT NULL,
   `name` VARCHAR(80) NOT NULL,
-  `image` VARCHAR(100) NOT NULL,
+  `image` VARCHAR(350) NOT NULL,
   `deliveryCost` DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_company_table11`
+  CONSTRAINT `fk_company_companyStatus1`
     FOREIGN KEY (`idStatus`)
-    REFERENCES `domiyi_dbp`.`companyStatus` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`companyStatus` (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`paymentMethod`
+-- Table `bqgr2cirsykagvh6xt6c`.`paymentMethod`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`paymentMethod` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`paymentMethod` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`paymentMethod` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`paymentMethod` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `paymentMethod` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`transactionStatus`
+-- Table `bqgr2cirsykagvh6xt6c`.`transactionStatus`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`transactionStatus` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`transactionStatus` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`transactionStatus` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`transactionStatus` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`transaction`
+-- Table `bqgr2cirsykagvh6xt6c`.`transaction`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`transaction` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`transaction` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`transaction` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`transaction` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `idStatus` INT NOT NULL,
   `paymentMethod` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_transaction_paymentMethod1`
     FOREIGN KEY (`paymentMethod`)
-    REFERENCES `domiyi_dbp`.`paymentMethod` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`paymentMethod` (`id`),
   CONSTRAINT `fk_transaction_transactionStatus1`
     FOREIGN KEY (`idStatus`)
-    REFERENCES `domiyi_dbp`.`transactionStatus` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`transactionStatus` (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`orderStatus`
+-- Table `bqgr2cirsykagvh6xt6c`.`orderStatus`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`orderStatus` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`orderStatus` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`orderStatus` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`orderStatus` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`user`
+-- Table `bqgr2cirsykagvh6xt6c`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`user` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`user` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `username` VARCHAR(15) NOT NULL,
@@ -99,16 +99,18 @@ CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`user` (
   PRIMARY KEY (`id`));
 
 
-CREATE UNIQUE INDEX `username_UNIQUE` ON `domiyi_dbp`.`user` (`username`);
+CREATE UNIQUE INDEX `username_UNIQUE` ON `bqgr2cirsykagvh6xt6c`.`user` (`username`);
 
-CREATE UNIQUE INDEX `email_UNIQUE` ON `domiyi_dbp`.`user` (`email`);
+CREATE UNIQUE INDEX `email_UNIQUE` ON `bqgr2cirsykagvh6xt6c`.`user` (`email`);
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`orders`
+-- Table `bqgr2cirsykagvh6xt6c`.`orders`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`order` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`order` (
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`order` ;
+
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`order` (
+
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `idStatus` INT NOT NULL,
   `idCompany` BIGINT(20) NOT NULL,
@@ -119,48 +121,51 @@ CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`order` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_company`
     FOREIGN KEY (`idCompany`)
-    REFERENCES `domiyi_dbp`.`company` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`company` (`id`),
   CONSTRAINT `fk_transaction`
     FOREIGN KEY (`idTransaction`)
-    REFERENCES `domiyi_dbp`.`transaction` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`transaction` (`id`),
   CONSTRAINT `fk_orders_orderStatus1`
     FOREIGN KEY (`idStatus`)
-    REFERENCES `domiyi_dbp`.`orderStatus` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`orderStatus` (`id`),
   CONSTRAINT `fk_orders_user1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `domiyi_dbp`.`user` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`user` (`id`));
 
 
-CREATE UNIQUE INDEX `idTransaction_UNIQUE` ON `domiyi_dbp`.`order` (`idTransaction`);
+
+CREATE UNIQUE INDEX `idTransaction_UNIQUE` ON `bqgr2cirsykagvh6xt6c`.`order` (`idTransaction`);
+
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`productStatus`
+-- Table `bqgr2cirsykagvh6xt6c`.`productStatus`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`productStatus` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`productStatus` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`productStatus` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`productStatus` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`productCategory`
+-- Table `bqgr2cirsykagvh6xt6c`.`productCategory`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`productCategory` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`productCategory` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`productCategory` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`productCategory` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `category` VARCHAR(20) NOT NULL,
+  `linkimg` VARCHAR(350),
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`product`
+-- Table `bqgr2cirsykagvh6xt6c`.`product`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`product` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`product` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`product` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`product` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `idCompany` BIGINT(20) NOT NULL,
   `idStatus` BIGINT(20) NOT NULL,
@@ -168,26 +173,26 @@ CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`product` (
   `name` VARCHAR(40) NOT NULL,
   `description` VARCHAR(200) NULL DEFAULT NULL,
   `price` DOUBLE NOT NULL,
-  `image` VARCHAR(120) NOT NULL,
+  `image` VARCHAR(350) NOT NULL,
   `updated` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_companies`
     FOREIGN KEY (`idCompany`)
-    REFERENCES `domiyi_dbp`.`company` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`company` (`id`),
   CONSTRAINT `fk_pro_status`
     FOREIGN KEY (`idStatus`)
-    REFERENCES `domiyi_dbp`.`productStatus` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`productStatus` (`id`),
   CONSTRAINT `fk_product_productCategory1`
     FOREIGN KEY (`idCategory`)
-    REFERENCES `domiyi_dbp`.`productCategory` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`productCategory` (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`store`
+-- Table `bqgr2cirsykagvh6xt6c`.`store`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`store` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`store` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`store` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`store` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `idCompany` BIGINT(20) NOT NULL,
   `name` VARCHAR(70) NOT NULL,
@@ -199,52 +204,52 @@ CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`store` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_to_company`
     FOREIGN KEY (`idCompany`)
-    REFERENCES `domiyi_dbp`.`company` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`company` (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`typeOffer`
+-- Table `bqgr2cirsykagvh6xt6c`.`typeOffer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`typeOffer` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`typeOffer` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`typeOffer` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`typeOffer` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`offer`
+-- Table `bqgr2cirsykagvh6xt6c`.`offer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`offer` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`offer` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`offer` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`offer` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `value` DOUBLE NOT NULL,
   `idType` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_offer_typeOffer1`
     FOREIGN KEY (`idType`)
-    REFERENCES `domiyi_dbp`.`typeOffer` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`typeOffer` (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`ProductOfferStatus`
+-- Table `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`ProductOfferStatus` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`ProductOfferStatus` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `status` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`productOffer`
+-- Table `bqgr2cirsykagvh6xt6c`.`productOffer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`productOffer` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`productOffer` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`productOffer` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`productOffer` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `idProduct` BIGINT(20) NOT NULL,
   `idOffer` BIGINT(20) NOT NULL,
@@ -252,27 +257,28 @@ CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`productOffer` (
   PRIMARY KEY (`id`, `idProduct`, `idOffer`),
   CONSTRAINT `fk_offer_has_product_offer1`
     FOREIGN KEY (`idOffer`)
-    REFERENCES `domiyi_dbp`.`offer` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`offer` (`id`),
   CONSTRAINT `fk_offer_has_product_product1`
     FOREIGN KEY (`idProduct`)
-    REFERENCES `domiyi_dbp`.`product` (`id`),
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`product` (`id`),
   CONSTRAINT `fk_productOffer_ProductOfferStatus1`
     FOREIGN KEY (`idStatus`)
-    REFERENCES `domiyi_dbp`.`ProductOfferStatus` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus` (`id`));
 
 
-CREATE UNIQUE INDEX `idProduct_UNIQUE` ON `domiyi_dbp`.`productOffer` (`idProduct`);
 
-CREATE UNIQUE INDEX `idOffer_UNIQUE` ON `domiyi_dbp`.`productOffer` (`idOffer`);
+ALTER TABLE `bqgr2cirsykagvh6xt6c`.`productOffer` ADD UNIQUE `unique_index`(`idProduct`, `idOffer`);
+
+
 
 
 
 -- -----------------------------------------------------
--- Table `domiyi_dbp`.`detail`
+-- Table `bqgr2cirsykagvh6xt6c`.`detail`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `domiyi_dbp`.`detail` ;
+DROP TABLE IF EXISTS `bqgr2cirsykagvh6xt6c`.`detail` ;
 
-CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`detail` (
+CREATE TABLE IF NOT EXISTS `bqgr2cirsykagvh6xt6c`.`detail` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `idOrder` BIGINT(20) NOT NULL,
   `idProductOffer` BIGINT(20) NOT NULL,
@@ -282,19 +288,135 @@ CREATE TABLE IF NOT EXISTS `domiyi_dbp`.`detail` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_detail_orders1`
     FOREIGN KEY (`idOrder`)
-    REFERENCES `domiyi_dbp`.`order` (`id`),
+
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`order` (`id`),
   CONSTRAINT `fk_detail_productOffer1`
     FOREIGN KEY (`idProductOffer`)
-    REFERENCES `domiyi_dbp`.`productOffer` (`id`));
+    REFERENCES `bqgr2cirsykagvh6xt6c`.`productOffer` (`id`));
+
 
 -- -----------------------------------------------------
 -- Queries
 -- -----------------------------------------------------
-INSERT INTO `domiyi_dbp`.`productCategory` (`id`, `category`) VALUES (NULL, 'ALIMENTOS'), (NULL, 'LICORES');
-INSERT INTO `domiyi_dbp`.`companystatus` (`id`, `status`) VALUES (NULL, 'DISPONIBLE'), (NULL, 'CERRADA');
-INSERT INTO `domiyi_dbp`.`orderstatus` (`id`, `status`) VALUES (NULL, 'EN PROGRESO'), (NULL, 'CANCELADA');
-INSERT INTO `domiyi_dbp`.`transactionstatus` (`id`, `status`) VALUES (NULL, 'EXITOSA'), (NULL, 'CANCELADA');
-INSERT INTO `domiyi_dbp`.`typeoffer` (`id`, `type`) VALUES (NULL, 'DESCUENTO');
-INSERT INTO `domiyi_dbp`.`productstatus` (`id`, `status`) VALUES (NULL, 'DISPONIBLE'), (NULL, 'AGOTADO');
-INSERT INTO `domiyi_dbp`.`productofferstatus` (`id`, `status`) VALUES (NULL, 'VIGENTE');
-INSERT INTO `domiyi_dbp`.`offer` (`id`, `value`, `idType`) VALUES (NULL, '0', '1');
+
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`productCategory` (`id`, `category`, `linkimg`) VALUES (NULL, 'ALIMENTOS',NULL), (NULL, 'LICORES',NULL);
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`productCategory` (`id`, `category`, `linkimg`) VALUES (NULL, 'MEXICANA',NULL), (NULL, 'FARMACIA',NULL);
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`companyStatus` (`id`, `status`) VALUES (NULL, 'DISPONIBLE'), (NULL, 'CERRADA');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`orderStatus` (`id`, `status`) VALUES (NULL, 'EN PROGRESO'), (NULL, 'CANCELADA');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`transactionStatus` (`id`, `status`) VALUES (NULL, 'EXITOSA'), (NULL, 'CANCELADA');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`typeOffer` (`id`, `type`) VALUES (NULL, 'DESCUENTO');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`typeOffer` (`id`, `type`) VALUES (NULL, 'MENOR PRECIO');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`productStatus` (`id`, `status`) VALUES (NULL, 'DISPONIBLE'), (NULL, 'AGOTADO');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus` (`id`, `status`) VALUES (NULL, 'VIGENTE');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`ProductOfferStatus` (`id`, `status`) VALUES (NULL, 'NO VIGENTE');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`offer` (`id`, `value`, `idType`) VALUES (NULL, '0', '1');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`user` (`id`, `name`, `username`, `email`, `password`, `phone`, `address`) VALUES (NULL, 'Andres Sanchez', 'afsanchezsa', 'afsanchezsa@unal.edu.co', '1234', '3005557777', 'cra 15 a 45 b 67');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`company` (`id`, `idStatus`, `idAdmin`, `name`, `image`, `deliveryCost`) VALUES (NULL, '1', '1', 'Domiyi', 'https://desayunostony.com/images/servicio-a-domicilio-01.jpg', '2000');
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`order` (`id`, `idStatus`, `idCompany`, `idUser`, `idTransaction`, `date`, `address`) VALUES (NULL, '1', '1', '1', NULL, current_timestamp(), 'cra 15 a 45 b 67');
+CREATE or replace VIEW productAndDetails AS SELECT
+d.id,
+pro.id as pro_id,
+pro.name,
+pro.description,
+pro.price,
+pro.image,
+pro.updated,
+p.idOffer,
+d.quantity,
+d.observation,
+d.unitPrice,
+d.idOrder
+
+FROM `bqgr2cirsykagvh6xt6c`.`productOffer` p INNER JOIN `bqgr2cirsykagvh6xt6c`.`detail` d on p.id = d.idProductOffer inner join `bqgr2cirsykagvh6xt6c`.`product` pro on pro.id = p.idProduct
+;
+
+
+
+CREATE or replace VIEW companyByCategory AS SELECT
+pro.id,
+pro.idCompany,
+pro.idCategory,
+com.name,
+com.image
+FROM `bqgr2cirsykagvh6xt6c`.`product` pro
+INNER JOIN `bqgr2cirsykagvh6xt6c`.`company` com ON pro.idCompany = com.id;
+
+
+CREATE or replace VIEW ordersByCompany AS SELECT
+c.id as idCompany,
+c.idAdmin,
+d.idOrder,
+prod.name,
+d.quantity,
+d.observation,
+d.unitPrice,
+o.address,
+o.date,
+oS.status
+FROM `bqgr2cirsykagvh6xt6c`.`order` o INNER JOIN `bqgr2cirsykagvh6xt6c`.`company` c on o.idCompany = c.id inner join
+`bqgr2cirsykagvh6xt6c`.`detail` d on o.id = d.idOrder inner join
+`bqgr2cirsykagvh6xt6c`.`productOffer` pro on d.idProductOffer = pro.id inner join
+`bqgr2cirsykagvh6xt6c`.`product` prod on pro.idProduct = prod.id inner join
+`bqgr2cirsykagvh6xt6c`.`orderStatus` oS on o.idStatus = oS.id order by o.date
+;
+
+CREATE or replace VIEW ProductOffersAndProduct AS SELECT
+p.id as id,
+pf.id as idProductOffer,
+p.idCompany,
+p.idStatus,
+p.name,
+p.description,
+p.price,
+p.image,
+tyo.id as idTypeOffer,
+tyo.type,
+of.value,
+of.id as idOffer
+
+FROM `bqgr2cirsykagvh6xt6c`.`productOffer` pf INNER JOIN `bqgr2cirsykagvh6xt6c`.`product` p 
+on pf.idProduct = p.id
+inner join `bqgr2cirsykagvh6xt6c`.`offer` of on pf.idOffer=of.id
+inner join `bqgr2cirsykagvh6xt6c`.`typeOffer` tyo on of.idType=tyo.id
+where pf.idStatus=1
+;
+
+CREATE or replace VIEW companiesByCategory AS SELECT DISTINCT
+c.id,
+c.image,
+c.name,
+proC.id as idCategory
+
+FROM `bqgr2cirsykagvh6xt6c`.`product` pro INNER JOIN `bqgr2cirsykagvh6xt6c`.`productCategory` proC on pro.idCategory = proC.id inner join
+`bqgr2cirsykagvh6xt6c`.`company` c on pro.idCompany = c.id order by c.id
+;
+
+CREATE or replace VIEW ordersByUser AS SELECT
+u.id as idUser,
+d.idOrder,
+prod.name,
+d.quantity,
+d.observation,
+d.unitPrice,
+o.address,
+o.date,
+oS.status
+FROM `bqgr2cirsykagvh6xt6c`.`order` o INNER JOIN `bqgr2cirsykagvh6xt6c`.`user` u on o.idUser = u.id inner join
+`bqgr2cirsykagvh6xt6c`.`detail` d on o.id = d.idOrder inner join
+`bqgr2cirsykagvh6xt6c`.`productOffer` pro on d.idProductOffer = pro.id inner join
+`bqgr2cirsykagvh6xt6c`.`product` prod on pro.idProduct = prod.id inner join
+`bqgr2cirsykagvh6xt6c`.`orderStatus` oS on o.idStatus = oS.id order by o.date
+;
+
+--
+-- insertado de datos para la tabla `paymentmethod`
+--
+
+INSERT INTO `bqgr2cirsykagvh6xt6c`.`paymentmethod` (`id`, `paymentMethod`) VALUES
+(1, 'Efectivo'),
+(2, 'PayPal'),
+(3, 'Credit Card');
+
+--
+-- Insertado de datos para la tabla `transactionstatus`
+--

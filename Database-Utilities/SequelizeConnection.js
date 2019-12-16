@@ -1,13 +1,8 @@
 const Sequelize=require('sequelize');
-const sequelize=new Sequelize('domiyi_dbp','root','',{
-    host:'localhost',
+const DB=require('./DatabaseDefinition')
+const sequelize=new Sequelize(DB.database,DB.user,DB.password,{
+    host:DB.host,
     dialect:'mysql',
-    pool:{
-        max: 5,
-        min:0,
-        require:30000,
-        idle:10000
-    },
-    logging:false
+    sockePath: "steady-webbing-241315:southamerica-east1:domiyi"
 });
 module.exports=sequelize;
